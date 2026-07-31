@@ -69,6 +69,7 @@ export function ProjectsSection({
               openInNewTab={project.blank}
               pixelatedCover={project.pixelatedCover}
               projectYear={project.year}
+              technicalHighlights={project.technicalHighlights}
               catalogNumber={number}
             />
           ))}

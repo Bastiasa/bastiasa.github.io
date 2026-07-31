@@ -14,6 +14,37 @@ console.log(IMAGES("shirt_maker_3d.jpg"));
 export const projects: ProjectInfo[] = [
 
   {
+    title: "Pressure Point",
+    description:
+      "Real-time multiplayer game powered by WebRTC peer-to-peer networking and a custom Node.js signaling server.",
+    cover: IMAGES("pressure_point.png"),
+    link: "https://bastiasa.itch.io/pressure-point",
+    pixelatedCover: true,
+    blank: true,
+    year: 2024,
+    technicalHighlights: [
+      "WebRTC peer-to-peer networking",
+      "Node.js signaling server",
+      "Secure nonce-based connection validation",
+      "Multiplayer state synchronization"
+    ]
+  },
+
+  {
+    title: "Voting System",
+    description: "Real-time voting system with automatic device discovery through UDP broadcasting. Built to synchronize voting sessions across local networks without manual configuration.",
+    cover: IMAGES("voting_system.webp"),
+    link: "https://github.com/Bastiasa/voting-system",
+    year: 2025,
+    technicalHighlights: [
+      "UDP broadcasting for data transfer",
+      "React frontend",
+      "Real-time synchronization",
+      "LAN communication"
+    ]
+  },
+
+  {
     title: "Shirt Maker 3D",
     description: "Create a mockup quickly and easily using your favorite images. Built with Vite.",
     cover: IMAGES("shirt_maker_3d.jpg"),
@@ -22,13 +53,6 @@ export const projects: ProjectInfo[] = [
     year: 2024
   },
 
-  {
-    title: "Voting System",
-    description: "Run voting sessions across multiple devices, featuring a real-time bar chart. Built with React and Electron.",
-    cover: IMAGES("voting_system.webp"),
-    link: "https://github.com/Bastiasa/voting-system",
-    year: 2025
-  },
 
   {
     title: "Blog Cutter",
@@ -47,17 +71,6 @@ export const projects: ProjectInfo[] = [
     link: "https://santastore.site",
     year: 2026,
   },*/
-
-  {
-    title: "Pressure Point",
-    description:
-      "An online multiplayer video game where you face off in a 1v1 battle. Developed for a Game Jam. Built with Godot Engine and Node.js.",
-    cover: IMAGES("pressure_point.png"),
-    link: "https://bastiasa.itch.io/pressure-point",
-    pixelatedCover: true,
-    blank: true,
-    year: 2024,
-  },
 
   {
     title: "First Person Showcase",

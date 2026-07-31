@@ -6,6 +6,7 @@ export type ProjectInfo = {
   blank?: boolean;
   pixelatedCover?: boolean;
   year?: number;
+  technicalHighlights?: string[];
 };
 
 export type CertificateData = {

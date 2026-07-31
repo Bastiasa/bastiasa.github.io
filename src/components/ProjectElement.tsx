@@ -1,6 +1,7 @@
 import { LinearLayout } from "./LinearLayout";
 import { ImageLoader } from "./ImageLoader";
 import { Icon } from "./Icon";
+import { Badge, List, ListItem, Title } from "@mantine/core";
 
 type ProjectElementProps = {
   projectTitle: string;
@@ -11,7 +12,9 @@ type ProjectElementProps = {
   pixelatedCover?: boolean;
   projectYear?: number;
   catalogNumber?: number;
+  technicalHighlights?: string[];
 };
+
 
 export function ProjectElement({
   projectTitle,
@@ -22,28 +25,50 @@ export function ProjectElement({
   pixelatedCover = false,
   projectYear,
   catalogNumber,
+  technicalHighlights
 }: ProjectElementProps) {
   return (
-    <LinearLayout className="project-container" spacing="0" alignItems="stretch">
+    <LinearLayout className="project-container" spacing="12px" alignItems="stretch">
+      
+      <span className="project-cover-layout"></span>
+
       <ImageLoader
         src={coverSrc || "https://placehold.co/3000x3000"}
         alt={projectTitle}
-        className={`project-cover  inline-block ${pixelatedCover ? "pixelated" : ""}`}
+        className={`project-cover ${pixelatedCover ? "pixelated" : ""}`}
       />
 
       <section className="sm:w-0 relative" style={{ flexGrow: "1" }}>
-        <LinearLayout direction="vertical" className="p-4 pb-6 relative" spacing="6px">
+        <LinearLayout  direction="vertical" className="p-4 pb-6 relative" spacing="12px">
           {catalogNumber !== undefined && (
             <span className="project-catalog-number">
               # {String(catalogNumber).padStart(3, "0")}
             </span>
           )}
 
-          <h5 className="project-title">
+          <Title order={3} className="project-title">
             {projectTitle + (projectYear ? ` — ${projectYear}` : "")}
-          </h5>
+          </Title>
 
-          <p className="project-description">{projectDescription}</p>
+          <Title order={4}>
+            Description
+          </Title>
+
+          <p className="max-w-[600px] project-description">{projectDescription}</p>
+
+          {technicalHighlights &&
+          <>
+            <Title order={4}>
+              Technical Highlights
+            </Title>
+
+            <List icon={<span>&bull;</span>}>
+              {technicalHighlights.map((text, index) => (
+                <ListItem key={index}>{text}</ListItem>
+              ))}
+            </List>
+
+          </>}
 
           {moreInfoLink && (
             <a
@@ -52,7 +77,7 @@ export function ProjectElement({
               rel={openInNewTab ? "noopener noreferrer" : undefined}
               href={moreInfoLink}
             >
-              Ver más <Icon name="open_in_new" />
+              More <Icon name="open_in_new" />
             </a>
           )}
         </LinearLayout>
