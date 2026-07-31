@@ -40,7 +40,8 @@ export const projects: ProjectInfo[] = [
       "UDP broadcasting for data transfer",
       "React frontend",
       "Real-time synchronization",
-      "LAN communication"
+      "LAN communication",
+      "Secure encrypted communication"
     ]
   },
 
@@ -50,7 +51,14 @@ export const projects: ProjectInfo[] = [
     cover: IMAGES("shirt_maker_3d.jpg"),
     link: "https://bastiasa.github.io/shirt_maker",
     blank: true,
-    year: 2024
+    year: 2024,
+
+    technicalHighlights: [
+      "3D model optimization",
+      "Vanilla JavaScript architecture",
+      "Custom user interface development",
+      "Canvas-based rendering system"
+    ]
   },
 
 
