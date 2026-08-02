@@ -5,8 +5,8 @@ import { LOCATION } from "./globals";
 
 export const HERO_DATA: HeroProps = {
     name: "Luis Bastidas",
-    role: "Backend Developer",
-    tagline: "I build robust web products, from prototype to production.",
+    role: "Game Developer",
+    tagline: "I build engaging games, from prototype to polished experience.",
     photoSrc: HERO_PHOTO.src,
     location: LOCATION,
     availability: "Available for new projects"
