@@ -1,10 +1,13 @@
 import type { ProjectInfo } from "../types";
 import { transformGlobFiles } from "../utils";
 
-const RAW_IMAGES = import.meta.glob("../assets/projects_banners/*.{png,jpg,webp,jpeg}", {
-  eager: true,
-  import: "default"
-}) as Record<string, { src: string }>;
+const RAW_IMAGES = import.meta.glob(
+    "../assets/projects_banners/*.{png,jpg,webp,jpeg}",
+    {
+        eager: true,
+        import: "default",
+    },
+) as Record<string, { src: string }>;
 
 const IMAGES = transformGlobFiles(RAW_IMAGES);
 
@@ -12,66 +15,86 @@ console.log(IMAGES("shirt_maker_3d.jpg"));
 
 // Replace with your real projects. The order defines the catalog number.
 export const projects: ProjectInfo[] = [
+    {
+        title: "Zona Mágica",
+        description:
+            "Development and digital presence management for a children's entertainment and recreation company",
+        cover: IMAGES("zona_magica.jpg"),
+        year: 2026,
+        link: "https://zonamagica.site",
+        technicalHighlights: [
+            "Development and deployment of a modern Next.js website",
+            "Advanced SEO optimization with structured data (LD+JSON)",
+            "Google Analytics, Google Tag Manager and custom event tracking",
+            "Google Business Profile and Google Maps optimization",
+            "Responsive UI built with React and Mantine",
+            "Performance and image optimization",
+            "Sitemap, robots.txt, canonical URLs and metadata configuration",
+            "Google Search Console integration and indexing setup",
+            "Consent management for analytics and tracking",
+        ],
+    },
 
-  {
-    title: "Pressure Point",
-    description:
-      "Real-time multiplayer game powered by WebRTC peer-to-peer networking and a custom Node.js signaling server.",
-    cover: IMAGES("pressure_point.png"),
-    link: "https://bastiasa.itch.io/pressure-point",
-    pixelatedCover: true,
-    blank: true,
-    year: 2024,
-    technicalHighlights: [
-      "WebRTC peer-to-peer networking",
-      "Node.js signaling server",
-      "Secure nonce-based connection validation",
-      "Multiplayer state synchronization"
-    ]
-  },
+    {
+        title: "Pressure Point",
+        description:
+            "Real-time multiplayer game powered by WebRTC peer-to-peer networking and a custom Node.js signaling server.",
+        cover: IMAGES("pressure_point.png"),
+        link: "https://bastiasa.itch.io/pressure-point",
+        pixelatedCover: true,
+        blank: true,
+        year: 2024,
+        technicalHighlights: [
+            "WebRTC peer-to-peer networking",
+            "Node.js signaling server",
+            "Secure nonce-based connection validation",
+            "Multiplayer state synchronization",
+        ],
+    },
 
-  {
-    title: "Voting System",
-    description: "Real-time voting system with automatic device discovery through UDP broadcasting. Built to synchronize voting sessions across local networks without manual configuration.",
-    cover: IMAGES("voting_system.webp"),
-    link: "https://github.com/Bastiasa/voting-system",
-    year: 2025,
-    technicalHighlights: [
-      "UDP broadcasting for data transfer",
-      "React frontend",
-      "Real-time synchronization",
-      "LAN communication",
-      "Secure encrypted communication"
-    ]
-  },
+    {
+        title: "Voting System",
+        description:
+            "Real-time voting system with automatic device discovery through UDP broadcasting. Built to synchronize voting sessions across local networks without manual configuration.",
+        cover: IMAGES("voting_system.webp"),
+        link: "https://github.com/Bastiasa/voting-system",
+        year: 2025,
+        technicalHighlights: [
+            "UDP broadcasting for data transfer",
+            "React frontend",
+            "Real-time synchronization",
+            "LAN communication",
+            "Secure encrypted communication",
+        ],
+    },
 
-  {
-    title: "Shirt Maker 3D",
-    description: "Create a mockup quickly and easily using your favorite images. Built with Vite.",
-    cover: IMAGES("shirt_maker_3d.jpg"),
-    link: "https://bastiasa.github.io/shirt_maker",
-    blank: true,
-    year: 2024,
+    {
+        title: "Shirt Maker 3D",
+        description:
+            "Create a mockup quickly and easily using your favorite images. Built with Vite.",
+        cover: IMAGES("shirt_maker_3d.jpg"),
+        link: "https://bastiasa.github.io/shirt_maker",
+        blank: true,
+        year: 2024,
 
-    technicalHighlights: [
-      "3D model optimization",
-      "Vanilla JavaScript architecture",
-      "Custom user interface development",
-      "Canvas-based rendering system"
-    ]
-  },
+        technicalHighlights: [
+            "3D model optimization",
+            "Vanilla JavaScript architecture",
+            "Custom user interface development",
+            "Canvas-based rendering system",
+        ],
+    },
 
+    {
+        title: "Blog Cutter",
+        description:
+            "Create clips from your longer videos with this fast and easy-to-use application. Built with React and Capacitor.",
+        cover: IMAGES("blogcutter.png"),
+        link: "https://github.com/Bastiasa/blogcutter/",
+        year: 2025,
+    },
 
-  {
-    title: "Blog Cutter",
-    description:
-      "Create clips from your longer videos with this fast and easy-to-use application. Built with React and Capacitor.",
-    cover: IMAGES("blogcutter.png"),
-    link: "https://github.com/Bastiasa/blogcutter/",
-    year: 2025,
-  },
-
-  /*{
+    /*{
     title: "Santa Store",
     description:
       "E-commerce website for a custom printing company called Santa Store Diseños Personalizados.",
@@ -80,32 +103,34 @@ export const projects: ProjectInfo[] = [
     year: 2026,
   },*/
 
-  {
-    title: "First Person Showcase",
-    description:
-      "A small demo showcasing my skills as a 3D game developer. Built with Godot Engine.",
-    cover: IMAGES("first_person_showcase.png"),
-    link: "https://bastiasa.itch.io/fptest",
-    year: 2024,
-  },
+    {
+        title: "First Person Showcase",
+        description:
+            "A small demo showcasing my skills as a 3D game developer. Built with Godot Engine.",
+        cover: IMAGES("first_person_showcase.png"),
+        link: "https://bastiasa.itch.io/fptest",
+        year: 2024,
+    },
 
-  {
-    title: "ArkaNet",
-    description: "A shoot'em up video game developed for a Platzi course. Built with Godot Engine.",
-    link: "https://bastiasa.itch.io/arkanet",
-    cover: IMAGES("arkanet.png"),
-    blank: true,
-    year: 2022
-  },
+    {
+        title: "ArkaNet",
+        description:
+            "A shoot'em up video game developed for a Platzi course. Built with Godot Engine.",
+        link: "https://bastiasa.itch.io/arkanet",
+        cover: IMAGES("arkanet.png"),
+        blank: true,
+        year: 2022,
+    },
 
-  {
-    title: "Dark People",
-    description: "A video game inspired by Five Nights at Freddy's. Built with Godot Engine.",
-    cover: IMAGES("dark_people.png"),
-    link: "https://bastiasa.itch.io/dark-people-beta",
-    blank: true,
-    year: 2022
-  }
+    {
+        title: "Dark People",
+        description:
+            "A video game inspired by Five Nights at Freddy's. Built with Godot Engine.",
+        cover: IMAGES("dark_people.png"),
+        link: "https://bastiasa.itch.io/dark-people-beta",
+        blank: true,
+        year: 2022,
+    },
 ];
 
 /**
