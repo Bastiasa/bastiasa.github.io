@@ -1,87 +1,88 @@
-import { LinearLayout } from "./LinearLayout";
-import { ImageLoader } from "./ImageLoader";
-import { Icon } from "./Icon";
-import { Badge, List, ListItem, Title } from "@mantine/core";
+import { translate, type Locale } from "../i18n";
+import type { ProjectInfo } from "../types";
 
-type ProjectElementProps = {
-  projectTitle: string;
-  projectDescription: string;
-  coverSrc: string;
-  moreInfoLink?: string;
-  openInNewTab?: boolean;
-  pixelatedCover?: boolean;
-  projectYear?: number;
-  catalogNumber?: number;
-  technicalHighlights?: string[];
-};
-
-
-export function ProjectElement({
-  projectTitle,
-  projectDescription,
-  coverSrc,
-  moreInfoLink,
-  openInNewTab = true,
-  pixelatedCover = false,
-  projectYear,
-  catalogNumber,
-  technicalHighlights
-}: ProjectElementProps) {
+function VotingArchitecture({ locale }: { locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   return (
-    <LinearLayout className="project-container" spacing="12px" alignItems="stretch">
-      
-      <span className="project-cover-layout"></span>
+    <figure className="architecture">
+      <figcaption>{t("How votes travel on the LAN")}</figcaption>
+      <div className="architecture-flow">
+        <div className="architecture-node">
+          <strong>{t("Voter apps")}</strong>
+          <span>{t("Collect votes on Windows")}</span>
+        </div>
+        <div className="architecture-transport">
+          <span aria-hidden="true">↓</span> {t("AES-encrypted UDP broadcast")}
+        </div>
+        <div className="architecture-node">
+          <strong>VotesViewer</strong>
+          <span>{t("Validate packets and aggregate totals")}</span>
+        </div>
+        <div className="architecture-transport" aria-hidden="true">↓</div>
+        <ul className="architecture-outputs" aria-label={t("Viewer outputs")}>
+          <li>{t("Live results")}</li>
+          <li>{t("CSV export")}</li>
+        </ul>
+      </div>
+    </figure>
+  );
+}
 
-      <ImageLoader
-        src={coverSrc || "https://placehold.co/3000x3000"}
-        alt={projectTitle}
-        className={`project-cover ${pixelatedCover ? "pixelated" : ""}`}
-      />
+export function ProjectElement({ project, locale }: { project: ProjectInfo; locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
+  const { id, title, category, status, year, description, solution, technologies, technicalHighlights, links, cover, featured } = project;
+  const isVoting = id === "lan-voting";
 
-      <section className="sm:w-0 relative" style={{ flexGrow: "1" }}>
-        <LinearLayout  direction="vertical" className="p-4 pb-6 relative" spacing="12px">
-          {catalogNumber !== undefined && (
-            <span className="project-catalog-number">
-              # {String(catalogNumber).padStart(3, "0")}
-            </span>
-          )}
+  return (
+    <article id={id} className={isVoting ? "project-card project-spotlight" : "project-card"} aria-labelledby={`${id}-title`}>
+      <div className="project-body">
+        <p className="project-meta">
+          <span>{status}</span>
+          {year && <time dateTime={String(year)}>{year}</time>}
+        </p>
+        <h3 id={`${id}-title`}>{title}</h3>
+        <p className="project-description">{description}</p>
+        {solution && <p className="project-solution">{solution}</p>}
 
-          <Title order={3} className="project-title">
-            {projectTitle + (projectYear ? ` — ${projectYear}` : "")}
-          </Title>
+        <ul className="tags project-tags" aria-label={t("Technologies")}>
+          {technologies.map((technology) => <li key={technology}>{t(technology)}</li>)}
+        </ul>
 
-          <Title order={4}>
-            Description
-          </Title>
+        {(technicalHighlights || cover) && (
+          <details className="project-details">
+            <summary>{t(technicalHighlights ? "Implementation details" : "Project preview")}<span className="sr-only">{t(" for ")}{title}</span></summary>
+            {technicalHighlights && (
+              <ul className="project-highlights">
+                {technicalHighlights.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            )}
+            {cover && (
+              <img
+                {...cover.image}
+                alt={cover.alt}
+                className={cover.fit === "contain" ? "project-image contain" : "project-image"}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+          </details>
+        )}
 
-          <p className="max-w-[600px] project-description">{projectDescription}</p>
+        {links && (
+          <ul className="project-links">
+            {links.map(({ label, href }) => (
+              <li key={href}>
+                <a className="text-link" href={href}>
+                  {t(label)}<span className="sr-only">{t(" for ")}{title}</span> <span className="arrow-external" aria-hidden="true" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
 
-          {technicalHighlights &&
-          <>
-            <Title order={4}>
-              Technical Highlights
-            </Title>
-
-            <List icon={<span>&bull;</span>}>
-              {technicalHighlights.map((text, index) => (
-                <ListItem key={index}>{text}</ListItem>
-              ))}
-            </List>
-
-          </>}
-
-          {moreInfoLink && (
-            <a
-              className="ml-auto! mt-4 project-link text-right block"
-              target={openInNewTab ? "_blank" : undefined}
-              rel={openInNewTab ? "noopener noreferrer" : undefined}
-              href={moreInfoLink}
-            >
-              More <Icon name="open_in_new" />
-            </a>
-          )}
-        </LinearLayout>
-      </section>
-    </LinearLayout>
+        {!featured && <p className="project-category">{t(category)}</p>}
+      </div>
+      {isVoting && <VotingArchitecture locale={locale} />}
+    </article>
   );
 }

@@ -1,61 +1,35 @@
-import { Icon } from "./Icon";
+import { translate, type Locale } from "../i18n";
+import type { FOOTER_DATA } from "../data/footer";
 
-export type SocialLink = {
-  label: string;
-  href: string;
-  icon: string;
-};
-
-export type FooterProps = {
-  name: string;
-  email?: string;
-  socials: SocialLink[];
-  location?: string;
-};
-
-export function Footer({ name, email, socials, location }: FooterProps) {
-  const year = new Date().getFullYear();
-
+export function Footer({ name, email, socials, otherProfiles, location, locale }: typeof FOOTER_DATA & { locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   return (
     <footer className="site-footer">
-      <div className="site-footer-inner">
-        <div className="footer-block">
-          <p className="footer-eyebrow">Contact</p>
-          <ul className="footer-socials">
-            {socials.map((social) => (
-              <li key={social.label}>
-                <a href={social.href} target="_blank" rel="noopener noreferrer">
-                  <Icon name={social.icon} />
-                  {social.label}
-                </a>
-              </li>
-            ))}
-            {email && (
-              <li>
-                <a href={`mailto:${email}`}>
-                  <Icon name="mail" />
-                  {email}
-                </a>
-              </li>
-            )}
-          </ul>
-        </div>
+      <div className="container">
+        <section id="contact" className="contact-layout" aria-labelledby="contact-title">
+          <div>
+            <h2 className="section-title" id="contact-title">{t("Get in touch")}</h2>
+            <p>{t("I’m open to backend roles in Colombia and internationally, especially remote opportunities.")}</p>
+            <p className="contact-location">{location}</p>
+          </div>
 
-        <div className="footer-block footer-block-right">
-          <p className="footer-eyebrow">Tech Stack</p>
-          <ul className="footer-facts">
-            {location && <li>Based in {location}</li>}
-            <li>Built with Astro, React, TypeScript, and Tailwind CSS</li>
-            <li>Designed and developed by {name}</li>
-          </ul>
-        </div>
-      </div>
+          <div className="contact-links">
+            <a className="button button-primary" href={`mailto:${email}`}>{email} <span className="arrow-external" aria-hidden="true" /></a>
+            <ul className="contact-socials">
+              {socials.map(({ label, href }) => (
+                <li key={href}><a className="button button-secondary" href={href}>{label} <span className="arrow-external" aria-hidden="true" /></a></li>
+              ))}
+            </ul>
+          </div>
+        </section>
 
-      <div className="footer-bottom">
-        <span>
-          © {year} {name}. All rights reserved.
-        </span>
-        <a href="#top">Back to top</a>
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} {name}</span>
+          <nav aria-label={t("Other profiles")}>
+            {otherProfiles.map(({ label, href }) => <a key={href} href={href}>{label}</a>)}
+          </nav>
+          <a href="#top">{t("Back to top")} <span aria-hidden="true">↑</span></a>
+        </div>
       </div>
     </footer>
   );

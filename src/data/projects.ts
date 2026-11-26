@@ -1,212 +1,174 @@
 import type { ProjectInfo } from "../types";
-import { transformGlobFiles } from "../utils";
+import arkanet from "../assets/projects_banners/arkanet.png";
+import blogcutter from "../assets/projects_banners/blogcutter.png";
+import darkPeople from "../assets/projects_banners/dark_people.png";
+import firstPerson from "../assets/projects_banners/first_person_showcase.png";
+import pressurePoint from "../assets/projects_banners/pressure_point.png";
+import shirtMaker from "../assets/projects_banners/shirt_maker_3d.jpg";
+import zonaMagica from "../assets/projects_banners/zona_magica.jpg";
 
-const RAW_IMAGES = import.meta.glob(
-    "../assets/projects_banners/*.{png,jpg,webp,jpeg}",
-    {
-        eager: true,
-        import: "default",
-    },
-) as Record<string, { src: string }>;
-
-const IMAGES = transformGlobFiles(RAW_IMAGES);
-
-console.log(IMAGES("shirt_maker_3d.jpg"));
-
-// Replace with your real projects. The order defines the catalog number.
-export const projects: ProjectInfo[] = [
-    {
-        title: "Zona Mágica",
-        description:
-            "Development and digital presence management for a children's entertainment and recreation company",
-        cover: IMAGES("zona_magica.jpg"),
-        year: 2026,
-        link: "https://zonamagica.site",
-        technicalHighlights: [
-            "Development and deployment of a modern Next.js website",
-            "Advanced SEO optimization with structured data (LD+JSON)",
-            "Google Analytics, Google Tag Manager and custom event tracking",
-            "Google Business Profile and Google Maps optimization",
-            "Responsive UI built with React and Mantine",
-            "Performance and image optimization",
-            "Sitemap, robots.txt, canonical URLs and metadata configuration",
-            "Google Search Console integration and indexing setup",
-            "Consent management for analytics and tracking",
-        ],
-    },
-
-    {
-        title: "Pressure Point",
-        description:
-            "Real-time multiplayer game powered by WebRTC peer-to-peer networking and a custom Node.js signaling server.",
-        cover: IMAGES("pressure_point.png"),
-        link: "https://bastiasa.itch.io/pressure-point",
-        pixelatedCover: true,
-        blank: true,
-        year: 2024,
-        technicalHighlights: [
-            "WebRTC peer-to-peer networking",
-            "Node.js signaling server",
-            "Secure nonce-based connection validation",
-            "Multiplayer state synchronization",
-        ],
-    },
-
-    {
-        title: "Voting System",
-        description:
-            "Real-time voting system with automatic device discovery through UDP broadcasting. Built to synchronize voting sessions across local networks without manual configuration.",
-        cover: IMAGES("voting_system.webp"),
-        link: "https://github.com/Bastiasa/voting-system",
-        year: 2025,
-        technicalHighlights: [
-            "UDP broadcasting for data transfer",
-            "React frontend",
-            "Real-time synchronization",
-            "LAN communication",
-            "Secure encrypted communication",
-        ],
-    },
-
-    {
-        title: "Shirt Maker 3D",
-        description:
-            "Create a mockup quickly and easily using your favorite images. Built with Vite.",
-        cover: IMAGES("shirt_maker_3d.jpg"),
-        link: "https://bastiasa.github.io/shirt_maker",
-        blank: true,
-        year: 2024,
-
-        technicalHighlights: [
-            "3D model optimization",
-            "Vanilla JavaScript architecture",
-            "Custom user interface development",
-            "Canvas-based rendering system",
-        ],
-    },
-
-    {
-        title: "Blog Cutter",
-        description:
-            "Create clips from your longer videos with this fast and easy-to-use application. Built with React and Capacitor.",
-        cover: IMAGES("blogcutter.png"),
-        link: "https://github.com/Bastiasa/blogcutter/",
-        year: 2025,
-    },
-
-    /*{
-    title: "Santa Store",
-    description:
-      "E-commerce website for a custom printing company called Santa Store Diseños Personalizados.",
-    cover: IMAGES("santa_store.png"),
-    link: "https://santastore.site",
+export const projects: ProjectInfo<ImageMetadata>[] = [
+  {
+    id: "lan-voting",
+    title: "LAN Voting System",
+    category: "Backend & networking",
+    status: "Windows release",
+    year: 2025,
+    featured: true,
+    description: "Collect and display votes in real time over a private local network without Internet access.",
+    solution: "Voter desktop apps periodically broadcast AES-encrypted vote totals over UDP. A separate viewer identifies sending devices from incoming packets, combines their totals into a live chart, and exports the results to CSV.",
+    technologies: ["Node.js", "TypeScript", "Electron", "React", "UDP broadcasting", "AES", "CSV"],
+    technicalHighlights: [
+      "Voters and viewers use a shared candidate list and a configurable UDP port.",
+      "The viewer validates incoming payloads and updates totals as new broadcasts arrive.",
+    ],
+    links: [
+      { label: "Source code", href: "https://github.com/Bastiasa/voting-system" },
+      { label: "Windows releases", href: "https://github.com/Bastiasa/voting-system/releases" },
+    ],
+  },
+  {
+    id: "pressure-point",
+    title: "Pressure Point — WebRTC Multiplayer",
+    category: "Backend & networking",
+    status: "Released game jam project",
+    year: 2024,
+    featured: true,
+    description: "Connect two players and keep their puzzle state in sync during an online match.",
+    solution: "A custom Node.js signaling server coordinates peer setup. WebRTC DataChannels carry gameplay updates directly between players, and use nonces to validate connections.",
+    technologies: ["Node.js", "WebRTC", "DataChannels", "Peer-to-peer", "Godot"],
+    technicalHighlights: ["My role on the game jam team was programming."],
+    links: [{ label: "Play on itch.io", href: "https://bastiasa.itch.io/pressure-point" }],
+    cover: { image: pressurePoint, alt: "Pixel-art Pressure Point title screen" },
+  },
+  {
+    id: "webdav-server",
+    title: "WebDAV Server",
+    category: "Backend & networking",
+    status: "Protocol implementation",
+    featured: true,
+    description: "Expose a directory over HTTP so a WebDAV client can inspect files and folders.",
+    solution: "A Python and Flask server handles PROPFIND requests, interprets the Depth header, and traverses directories recursively when requested to enumerate resources.",
+    technologies: ["Python", "Flask", "HTTP", "WebDAV", "PROPFIND"],
+  },
+  {
+    id: "esp32-cam-streaming",
+    title: "ESP32-CAM Streaming System",
+    category: "Backend & networking",
+    status: "Streaming experiment",
+    featured: true,
+    description: "Transmit images from a microcontroller to software on another device over a network.",
+    solution: "The ESP32-CAM streams frames using multipart HTTP. A separate UDP experiment uses a Python receiver to process frames received over the network.",
+    technologies: ["ESP32-CAM", "C", "C++", "Multipart HTTP", "UDP", "Python"],
+  },
+  {
+    id: "zona-magica",
+    title: "Zona Mágica",
+    category: "Web & integrations",
+    status: "Live website",
     year: 2026,
-  },*/
-
-    {
-        title: "First Person Showcase",
-        description:
-            "A small demo showcasing my skills as a 3D game developer. Built with Godot Engine.",
-        cover: IMAGES("first_person_showcase.png"),
-        link: "https://bastiasa.itch.io/fptest",
-        year: 2024,
-    },
-
-    {
-        title: "ArkaNet",
-        description:
-            "A shoot'em up video game developed for a Platzi course. Built with Godot Engine.",
-        link: "https://bastiasa.itch.io/arkanet",
-        cover: IMAGES("arkanet.png"),
-        blank: true,
-        year: 2022,
-    },
-
-    {
-        title: "Dark People",
-        description:
-            "A video game inspired by Five Nights at Freddy's. Built with Godot Engine.",
-        cover: IMAGES("dark_people.png"),
-        link: "https://bastiasa.itch.io/dark-people-beta",
-        blank: true,
-        year: 2022,
-    },
+    description: "Built and deployed a website for a recreation and entertainment business, with a focus on discoverability and analytics.",
+    technologies: ["Next.js", "React", "Mantine", "Google Analytics", "Google Tag Manager", "JSON-LD"],
+    technicalHighlights: [
+      "Custom event tracking and consent management.",
+      "Structured data, canonical metadata, sitemap, and Search Console integration.",
+      "Responsive layouts and image optimization.",
+    ],
+    links: [
+      { label: "Live website", href: "https://zonamagica.site/" },
+      { label: "Source code", href: "https://github.com/Bastiasa/zonamagica" },
+    ],
+    cover: { image: zonaMagica, alt: "", fit: "contain" },
+  },
+  {
+    id: "multichannel-agent",
+    title: "Multichannel AI Agent",
+    category: "Backend & networking",
+    status: "Architecture exploration",
+    description: "Exploring how a Node.js service could coordinate AI conversations across messaging platforms and model providers.",
+    technologies: ["Node.js", "TypeScript", "Tool calling", "Provider adapters", "Concurrent messaging"],
+    technicalHighlights: [
+      "Planned provider abstraction for OpenAI, Gemini, and Claude.",
+      "Design considers isolated conversations, per-conversation memory, and concurrent message handling.",
+      "Possible channel adapters include WhatsApp, Instagram, Messenger, and Telegram.",
+    ],
+  },
+  {
+    id: "braille-transformer",
+    title: "Braille Transformer",
+    category: "Apps & tools",
+    status: "Android project",
+    description: "A native Android app that converts text to braille and supports spoken output.",
+    technologies: ["Kotlin", "Android SDK", "Text-to-Speech", "SharedPreferences"],
+    technicalHighlights: ["Audio playback and local persistence through SharedPreferences."],
+  },
+  {
+    id: "blogcutter",
+    title: "BlogCutter",
+    category: "Apps & tools",
+    status: "Public source",
+    year: 2025,
+    description: "An Android app for selecting and trimming multiple segments from a longer video.",
+    technologies: ["React", "TypeScript", "Capacitor", "FFmpeg"],
+    technicalHighlights: ["Explores FFmpeg-based and native mobile video processing."],
+    links: [{ label: "Source code", href: "https://github.com/Bastiasa/blogcutter" }],
+    cover: { image: blogcutter, alt: "", fit: "contain" },
+  },
+  {
+    id: "8d-audio",
+    title: "8D Audio Browser Extension",
+    category: "Apps & tools",
+    status: "Browser extension project",
+    description: "A Chrome extension that pans browser audio in real time to create a spatial effect.",
+    technologies: ["JavaScript", "Manifest V3", "Web Audio API", "AudioContext", "StereoPannerNode", "GainNode"],
+    technicalHighlights: ["Uses Web Audio API nodes to control stereo position and gain during playback."],
+  },
+  {
+    id: "shirt-maker",
+    title: "Shirt Maker 3D",
+    category: "Games & 3D",
+    status: "Live demo",
+    year: 2024,
+    description: "A browser tool for turning custom images into interactive 3D shirt mockups.",
+    technologies: ["JavaScript", "Vite", "Canvas", "3D rendering"],
+    technicalHighlights: ["Custom controls and optimized 3D models."],
+    links: [
+      { label: "Live demo", href: "https://bastiasa.github.io/shirt_maker/" },
+      { label: "Source code", href: "https://github.com/Bastiasa/shirt_maker" },
+    ],
+    cover: { image: shirtMaker, alt: "Custom shirt design displayed on a 3D model" },
+  },
+  {
+    id: "first-person-showcase",
+    title: "First Person Showcase",
+    category: "Games & 3D",
+    status: "Live demo",
+    year: 2024,
+    description: "A Godot demo of first-person controls and interaction in a 3D environment.",
+    technologies: ["Godot", "3D", "First-person controls"],
+    links: [{ label: "Play on itch.io", href: "https://bastiasa.itch.io/fptest" }],
+    cover: { image: firstPerson, alt: "First-person view from the Godot demo" },
+  },
+  {
+    id: "arkanet",
+    title: "ArkaNet",
+    category: "Games & 3D",
+    status: "Course project",
+    year: 2022,
+    description: "A 2D shoot ’em up built with Godot as part of a Platzi course.",
+    technologies: ["Godot", "2D game development"],
+    links: [{ label: "Play on itch.io", href: "https://bastiasa.itch.io/arkanet" }],
+    cover: { image: arkanet, alt: "ArkaNet pixel-art game cover" },
+  },
+  {
+    id: "dark-people",
+    title: "Dark People",
+    category: "Games & 3D",
+    status: "Public beta",
+    year: 2022,
+    description: "A Godot horror game inspired by Five Nights at Freddy’s.",
+    technologies: ["Godot", "Game development"],
+    links: [{ label: "View beta on itch.io", href: "https://bastiasa.itch.io/dark-people-beta" }],
+    cover: { image: darkPeople, alt: "Dark People game cover" },
+  },
 ];
-
-/**
- *
- * type ProjectInfo = {
- *   title: string;
- *   description: string;
- *   cover: string;
- *   link?: string;
- *   blank?: boolean;
- *   pixelatedCover?: boolean;
- *   year?: number;
- * }
- *
- * const PROJECTS: ProjectInfo[] = [
- *   {
- *     title: "Santa Store",
- *     description: "E-commerce website for a custom printing company called Santa Store Diseños Personalizados.",
- *     cover: SANTA_STORE_LOGO,
- *     link: "https://santastore.site",
- *     year: 2026
- *   },
- *
- *   {
- *     title: "Blog Cutter",
- *     description: "An Android application for efficiently trimming long videos.",
- *     cover: BC_LOGO,
- *     link: "https://github.com/Bastiasa/blogcutter/",
- *     year: 2025
- *   },
- *
- *   {
- *     title: "Pressure Point",
- *     description: "An online multiplayer video game where you face off in a 1v1 battle. Developed for a Game Jam.",
- *     cover: PRESSURE_POINT_BANNER,
- *     link: "https://bastiasa.itch.io/pressure-point",
- *     blank: true,
- *     pixelatedCover: true,
- *     year: 2024
- *   },
- *
- *   {
- *     title: "First Person Showcase",
- *     description: "A small demo showcasing my skills as a 3D game developer.",
- *     cover: FPSCS_BANNER,
- *     link: "https://bastiasa.itch.io/fptest",
- *     blank: true,
- *     pixelatedCover: false,
- *     year: 2024
- *   },
- *
- *   {
- *     title: "Shirt Maker 3D",
- *     description: "A website for previewing t-shirt designs in 3D.",
- *     cover: SHIRT_MAKER_3D_BANNER,
- *     link: "https://bastiasa.github.io/shirt_maker",
- *     blank: true,
- *     year: 2024
- *   },
- *
- *   {
- *     title: "ArkaNet",
- *     description: "This video game was created for a Platzi course.",
- *     link: "https://bastiasa.itch.io/arkanet",
- *     cover: ARKANET_BANNER,
- *     blank: true,
- *     year: 2022
- *   },
- *
- *   {
- *     title: "Dark People",
- *     description: "A video game inspired by Five Nights at Freddy's, developed with Godot Engine 3.",
- *     cover: DARK_PEOPLE_BANNER,
- *     link: "https://bastiasa.itch.io/dark-people-beta",
- *     blank: true,
- *     year: 2022
- *   }
- * ];
- */

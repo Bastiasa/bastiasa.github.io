@@ -1,56 +1,44 @@
+import aptisLogo from "../assets/certifications_logos/aptis_logo.avif";
+import javaLogo from "../assets/certifications_logos/java_logo.webp";
+import phpLogo from "../assets/certifications_logos/php_logo.webp";
 import type { CertificateData } from "../types";
-import { transformGlobFiles } from "../utils";
-
-const LOGOS_RAW = import.meta.glob("../assets/certifications_logos/*.{png,jpg,webp,jpeg,avif}", {
-  eager: true,
-  import: "default"
-}) as Record<string, {src:string}>;
-
-const LOGOS = transformGlobFiles(LOGOS_RAW);
-
-const r = function (id: string) {
-  return `c/${id}`;
-}
 
 export const certificates: CertificateData[] = [
   {
-    image: LOGOS('aptis_logo.avif'),
+    image: aptisLogo.src,
     url: "https://credentials.britishcouncil.org/37a53c25-e2bf-41f0-85e6-88133caad087?key=c8d0195bacb345d8d6b4930107b5b5072840e8a9750994123f6eb76115bb70de",
     title: "Aptis General",
     issuer: "British Council",
-  },
-
-  {
-    image: LOGOS('php_logo.webp'),
-    url: r("9123002706555TI1107854150C.pdf"),
-    title: "DESARROLLO WEB CON PHP",
-    issuer: "Servicio Nacional de Aprendizaje (CO)",
+    level: "English B2",
   },
   {
-    image: LOGOS('java_logo.webp'),
-    url: r("9502002716242TI1107854150C.pdf"),
-    title: "PROGRAMACIÓN ORIENTADA A OBJETOS CON JAVA",
-    issuer: "Servicio Nacional de Aprendizaje (CO)",
+    image: "/c/national-english-cert.webp",
+    url: "/c/national-english-cert.pdf",
+    title: "English B2",
+    issuer: "Teaching Languages Service (TLS)",
   },
-
   {
-    image: r('national-english-cert.webp'),
-    url: r('national-english-cert.pdf'),
-    title: "INGLÉS B2",
-    issuer: "Teaching Languages Service (TLS)"
+    image: javaLogo.src,
+    url: "/c/9502002716242TI1107854150C.pdf",
+    title: "Object-Oriented Programming with Java",
+    issuer: "SENA",
   },
-
   {
-    image: r('diploma-godot-videojuegos2d.webp'),
-    url: r('diploma-godot-videojuegos2d.pdf'),
-    title: "CREAR UN VIDEOJUEGO SHOOT'EM UP",
-    issuer: "Platzi"
+    image: phpLogo.src,
+    url: "/c/9123002706555TI1107854150C.pdf",
+    title: "Web Development with PHP",
+    issuer: "SENA",
   },
-
   {
-    image: r('diploma-introduccion-godot.webp'),
-    url: r('diploma-introduccion-godot.pdf'),
-    title: "INTRODUCCIÓN A GODOT",
-    issuer: "Platzi"
-  }
+    image: "/c/diploma-godot-videojuegos2d.webp",
+    url: "/c/diploma-godot-videojuegos2d.pdf",
+    title: "Create a 2D Shoot ’Em Up",
+    issuer: "Platzi",
+  },
+  {
+    image: "/c/diploma-introduccion-godot.webp",
+    url: "/c/diploma-introduccion-godot.pdf",
+    title: "Introduction to Godot",
+    issuer: "Platzi",
+  },
 ];

@@ -1,81 +1,42 @@
+import { translate, type Locale } from "../i18n";
 import { useEffect, useState } from "react";
-import { Icon } from "./Icon";
+import { CONSENT_STORAGE_KEY, setAnalyticsConsent, type AnalyticsConsent } from "../analytics";
 
-const STORAGE_KEY = "cookie-consent";
-
-type CookieConsentProps = {
-  onAccepted: () => void;
-};
-
-
-const DENIED_VALUE = "denied";
-const ACCEPTED_VALUE = "accepted";
-
-/**
- * Pestaña de cookies. Se muestra por encima de todo el sitio hasta que el
- * usuario acepta; a partir de ahí queda recordado en localStorage y no
- * vuelve a aparecer en visitas futuras.
- */
-export function CookieConsent({ onAccepted }: CookieConsentProps) {
+export function CookieConsent({ locale }: { locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const state = localStorage.getItem(STORAGE_KEY);
-    const alreadyAccepted = state === ACCEPTED_VALUE;
-    
-    if (alreadyAccepted) {
-      onAccepted();
-    } else if (state !== DENIED_VALUE) {
+    try {
+      const saved = localStorage.getItem(CONSENT_STORAGE_KEY);
+      setVisible(saved !== "accepted" && saved !== "denied");
+    } catch {
       setVisible(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function handleAccept() {
-    localStorage.setItem(STORAGE_KEY, ACCEPTED_VALUE);
-    setVisible(false);
-    onAccepted();
-  }
+  function saveChoice(choice: AnalyticsConsent) {
+    try {
+      localStorage.setItem(CONSENT_STORAGE_KEY, choice);
+    } catch {
+      // Apply the choice for this page when storage is unavailable.
+    }
 
-  function handleDeny() {
-    localStorage.setItem(STORAGE_KEY, DENIED_VALUE);
+    setAnalyticsConsent(choice);
     setVisible(false);
   }
 
   if (!visible) return null;
 
-return (
-  <div
-    className="cookie-consent"
-    role="dialog"
-    aria-live="polite"
-    aria-label="Cookie Notice"
-  >
-    <div className="cookie-consent-inner">
-      <Icon name="cookie" className="cookie-consent-icon" />
-
-      <p className="cookie-consent-text">
-        This website uses <strong>Google Analytics</strong> cookies to
-        understand how visitors navigate the site and improve its content.
-        They are not used for advertising purposes.
-      </p>
-
-      <button
-        type="button"
-        className="cookie-consent-button"
-        onClick={handleDeny}
-      >
-        Reject
-      </button>
-
-      <button
-        type="button"
-        className="cookie-consent-button"
-        onClick={handleAccept}
-      >
-        Accept
-      </button>
-    </div>
-  </div>
-);
+  return (
+    <aside className="cookie-consent" aria-label={t("Analytics cookies")}>
+      <div className="cookie-consent-inner">
+        <p>{t("Allow Google Analytics cookies to help me understand how visitors use this portfolio.")}</p>
+        <div className="cookie-actions">
+          <button className="button button-secondary" type="button" onClick={() => saveChoice("denied")}>{t("Reject")}</button>
+          <button className="button button-primary" type="button" onClick={() => saveChoice("accepted")}>{t("Accept")}</button>
+        </div>
+      </div>
+    </aside>
+  );
 }
