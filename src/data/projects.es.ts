@@ -13,6 +13,16 @@ export const projectTranslations: Record<string, ProjectTranslation> = {
     solution: "Las aplicaciones de escritorio Voter difunden periódicamente los totales por UDP con cifrado AES. Un visor independiente identifica los dispositivos emisores por los paquetes recibidos, suma sus votos en un gráfico en vivo y exporta los resultados a CSV.",
     technicalHighlights: ["Las aplicaciones Voter y el visor comparten una lista de candidatos y un puerto UDP configurable.", "El visor valida los datos de los paquetes y actualiza los totales al recibir cada transmisión."],
   },
+  "digital-projector": {
+    status: "Código fuente público",
+    description: "Controla la reproducción de imágenes, video y audio locales desde otro dispositivo conectado a la misma red.",
+    solution: "Electron ejecuta un servidor Fastify integrado que sirve un panel web y transmite archivos desde el disco. Socket.IO lleva las órdenes de reproducción al equipo anfitrión y sincroniza el estado con los visores conectados.",
+    technicalHighlights: [
+      "Un código QR abre el panel de control en la dirección local del equipo anfitrión.",
+      "El servidor indexa las carpetas seleccionadas y sirve archivos por ID con el tipo MIME detectado.",
+      "Las actualizaciones incluyen el estado de pausa, la posición y el volumen.",
+    ],
+  },
   "pressure-point": {
     title: "Pressure Point — Multijugador con WebRTC",
     status: "Proyecto publicado de una game jam",
