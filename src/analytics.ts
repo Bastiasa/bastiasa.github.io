@@ -1,27 +1,19 @@
+export const CONSENT_STORAGE_KEY = "cookie-consent";
+
+export type AnalyticsConsent = "accepted" | "denied";
 
 declare global {
-    interface Window {
-        gtag(...args: any[]): void;
-        dataLayer: any[];
-    }
-};
-
-export function googleAnalyticsSetMode(mode:'restricted'|'normal') {
-    switch (mode) {
-        case 'restricted':
-            window.gtag('consent', 'update', {
-                analytics_storage: 'denied'
-            });
-            break;
-        
-        case 'normal':
-            window.gtag('consent', 'update', {
-                analytics_storage: 'granted'
-            });
-            break;
-    
-        default:
-            break;
-    }
+  interface Window {
+    gtag?: (
+      command: "consent",
+      action: "update",
+      settings: { analytics_storage: "granted" | "denied" },
+    ) => void;
+  }
 }
 
+export function setAnalyticsConsent(choice: AnalyticsConsent) {
+  window.gtag?.("consent", "update", {
+    analytics_storage: choice === "accepted" ? "granted" : "denied",
+  });
+}

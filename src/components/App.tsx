@@ -1,39 +1,49 @@
-// src/components/App.tsx
-
-import { MantineProvider } from "@mantine/core";
-import { ProjectsSection } from "./ProjectsSection";
-import { projects } from "../data/projects";
-
-import '@mantine/core/styles.css';
-import '../index.css';
-import { Hero } from "./Hero";
-import { HERO_DATA } from "../data/hero";
+import type { ReactNode } from "react";
 import { CertificatesSection } from "./Certificates";
-import { certificates } from "../data/certificates";
 import { Footer } from "./Footer";
+import { Hero } from "./Hero";
+import { Skills } from "./Skills";
+import { certificates } from "../data/certificates";
 import { FOOTER_DATA } from "../data/footer";
-import { CookieConsent } from "./CookieConsent";
-import { googleAnalyticsSetMode } from "../analytics";
+import { professionalSummary } from "../data/hero";
+import type { PortfolioImage } from "../types";
 
-export default function App() {
+export default function App({ portrait, children }: { portrait: PortfolioImage; children: ReactNode }) {
   return (
-    <MantineProvider>
-      <div id="top">
-        <Hero {...HERO_DATA}/>
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <header id="top" className="site-header">
+        <div className="container nav-layout">
+          <a className="wordmark" href="#top">
+            <span className="wordmark-initials" aria-hidden="true">LB</span>
+            <span>Luis Bastidas</span>
+          </a>
+          <nav aria-label="Main navigation">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#certifications">Certifications</a>
+          </nav>
+          <a className="button button-secondary nav-contact" href="#contact">Contact <span aria-hidden="true">→</span></a>
+        </div>
+      </header>
 
-        <main className="p-4 max-w-[1400px] mx-auto">
-          <ProjectsSection projects={projects} />
-          <CertificatesSection certificates={certificates}/>
-        </main>
+      <main id="main" tabIndex={-1}>
+        <Hero portrait={portrait} />
+        <div className="container">
+          <section id="about" className="page-section summary" aria-labelledby="about-title">
+            <h2 id="about-title" className="section-title">Professional Summary</h2>
+            <div className="summary-copy">
+              {professionalSummary.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+          </section>
+          <Skills />
+          {children}
+          <CertificatesSection certificates={certificates} />
+        </div>
+      </main>
 
-        <Footer
-          {...FOOTER_DATA}/>
-
-        <CookieConsent
-          onAccepted={() => {
-            googleAnalyticsSetMode('normal')
-          }}/>
-      </div>
-    </MantineProvider>
+      <Footer {...FOOTER_DATA} />
+    </>
   );
 }

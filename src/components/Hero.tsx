@@ -1,66 +1,43 @@
-import { Icon } from "./Icon";
+import { GITHUB_URL } from "../data/footer";
+import { HERO_DATA } from "../data/hero";
+import type { PortfolioImage } from "../types";
 
-export type HeroProps = {
-  name: string;
-  role: string;
-  tagline: string;
-  photoSrc: string;
-  location?: string;
-  availability?: string;
-};
+export function Hero({ portrait }: { portrait: PortfolioImage }) {
+  const { name, role, stack, tagline, location, availability, experience, language } = HERO_DATA;
 
-/**
- * Hero cuadrado: la foto se recorta a 1:1 y actúa como "ficha" de identificación,
- * en línea con el resto del sitio (que trata cada proyecto como una entrada de
- * catálogo). El bloque de texto vive junto a ella, no debajo, para que ambos
- * se lean como una sola tarjeta al abrir la página.
- */
-export function Hero({
-  name,
-  role,
-  tagline,
-  photoSrc,
-  location,
-  availability,
-}: HeroProps) {
   return (
-    <header className="hero">
-      <div className="hero-inner">
-        <div className="hero-photo-frame">
-          <img src={photoSrc} alt={name} className="hero-photo" />
-          {/*<span className="hero-photo-tag">Ficha 01</span>*/}
-        </div>
-
+    <section className="hero" aria-labelledby="hero-title">
+      <div className="container hero-inner">
         <div className="hero-copy">
-          <p className="hero-eyebrow">PORTFOLIO — {new Date().getFullYear()}</p>
-          <h1 className="hero-name">{name}</h1>
-          <p className="hero-role">{role}</p>
+          <p className="hero-name">{name}</p>
+          <h1 id="hero-title">{role}</h1>
+          <p className="hero-stack">{stack}</p>
           <p className="hero-tagline">{tagline}</p>
 
-          <dl className="hero-meta">
-            {location && (
-              <div className="hero-meta-row">
-                <dt>
-                  <Icon name="location_on" />
-                </dt>
-                <dd>{location}</dd>
-              </div>
-            )}
-            {availability && (
-              <div className="hero-meta-row">
-                <dt>
-                  <Icon name="bolt" />
-                </dt>
-                <dd>{availability}</dd>
-              </div>
-            )}
-          </dl>
+          <div className="actions">
+            <a className="button button-primary" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a>
+            <a className="button button-secondary" href={GITHUB_URL}>View GitHub <span className="arrow-external" aria-hidden="true" /></a>
+            <a className="text-link" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+          </div>
 
-          <a className="hero-scroll" href="#projects">
-            See projects <Icon name="south" />
-          </a>
+          <ul className="hero-facts" aria-label="Professional details">
+            <li>{experience}</li>
+            <li><a href="#certifications">{language}</a></li>
+            <li className="availability">{availability}</li>
+          </ul>
         </div>
+
+        <figure className="portrait">
+          <img {...portrait} alt={name} fetchPriority="high" />
+          <figcaption>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <path d="M20 10c0 5-8 10-8 10S4 15 4 10a8 8 0 1 1 16 0Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
+            {location}
+          </figcaption>
+        </figure>
       </div>
-    </header>
+    </section>
   );
 }
