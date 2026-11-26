@@ -24,6 +24,7 @@ export type ProjectInfo<Cover = PortfolioImage> = {
   cover?: { image: Cover; alt: string; fit?: "contain" };
   year?: number;
   featured?: boolean;
+  experiment?: boolean;
 };
 
 export type CertificateData = {
@@ -32,4 +33,5 @@ export type CertificateData = {
   title: string;
   issuer: string;
   level?: string;
+  kind: "english" | "course";
 };

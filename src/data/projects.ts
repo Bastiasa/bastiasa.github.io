@@ -28,6 +28,23 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
     ],
   },
   {
+    id: "digital-projector",
+    title: "Digital Projector",
+    category: "Backend & networking",
+    status: "Public source",
+    year: 2026,
+    featured: true,
+    description: "Control playback of local images, video, and audio from another device on the same network.",
+    solution: "Electron runs an embedded Fastify server that serves a browser control panel and streams files from disk. Socket.IO carries playback commands to the host and syncs playback state with connected viewers.",
+    technologies: ["Node.js", "TypeScript", "Fastify", "Socket.IO", "HTTP", "Electron", "React"],
+    technicalHighlights: [
+      "A QR code opens the control panel at the host’s local network address.",
+      "The server indexes selected folders and serves files by ID with the detected MIME type.",
+      "Playback updates include pause state, position, and volume.",
+    ],
+    links: [{ label: "Source code", href: "https://github.com/Bastiasa/digital-projector" }],
+  },
+  {
     id: "pressure-point",
     title: "Pressure Point — WebRTC Multiplayer",
     category: "Backend & networking",
@@ -81,19 +98,6 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
     cover: { image: zonaMagica, alt: "", fit: "contain" },
   },
   {
-    id: "multichannel-agent",
-    title: "Multichannel AI Agent",
-    category: "Backend & networking",
-    status: "Architecture exploration",
-    description: "Exploring how a Node.js service could coordinate AI conversations across messaging platforms and model providers.",
-    technologies: ["Node.js", "TypeScript", "Tool calling", "Provider adapters", "Concurrent messaging"],
-    technicalHighlights: [
-      "Planned provider abstraction for OpenAI, Gemini, and Claude.",
-      "Design considers isolated conversations, per-conversation memory, and concurrent message handling.",
-      "Possible channel adapters include WhatsApp, Instagram, Messenger, and Telegram.",
-    ],
-  },
-  {
     id: "braille-transformer",
     title: "Braille Transformer",
     category: "Apps & tools",
@@ -140,6 +144,7 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
   },
   {
     id: "first-person-showcase",
+    experiment: true,
     title: "First Person Showcase",
     category: "Games & 3D",
     status: "Live demo",
@@ -151,6 +156,7 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
   },
   {
     id: "arkanet",
+    experiment: true,
     title: "ArkaNet",
     category: "Games & 3D",
     status: "Course project",
@@ -162,6 +168,7 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
   },
   {
     id: "dark-people",
+    experiment: true,
     title: "Dark People",
     category: "Games & 3D",
     status: "Public beta",

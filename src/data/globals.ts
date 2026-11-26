@@ -1,7 +1,8 @@
 export const NAME = "Luis Bastidas";
 export const ROLE = "Backend Developer";
 export const STACK = "Node.js & Python";
-export const EMAIL = "leysantqm@gmail.com";
+// Set this to your professional email to enable the contact link.
+export const CONTACT_EMAIL = "";
 export const LOCATION = "Antioquia, Colombia";
 
 export const TAGLINE =

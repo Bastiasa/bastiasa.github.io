@@ -13,6 +13,16 @@ export const projectTranslations: Record<string, ProjectTranslation> = {
     solution: "Las aplicaciones de escritorio Voter difunden periódicamente los totales por UDP con cifrado AES. Un visor independiente identifica los dispositivos emisores por los paquetes recibidos, suma sus votos en un gráfico en vivo y exporta los resultados a CSV.",
     technicalHighlights: ["Las aplicaciones Voter y el visor comparten una lista de candidatos y un puerto UDP configurable.", "El visor valida los datos de los paquetes y actualiza los totales al recibir cada transmisión."],
   },
+  "digital-projector": {
+    status: "Código fuente público",
+    description: "Controla la reproducción de imágenes, video y audio locales desde otro dispositivo conectado a la misma red.",
+    solution: "Electron ejecuta un servidor Fastify integrado que sirve un panel web y transmite archivos desde el disco. Socket.IO lleva las órdenes de reproducción al equipo anfitrión y sincroniza el estado con los visores conectados.",
+    technicalHighlights: [
+      "Un código QR abre el panel de control en la dirección local del equipo anfitrión.",
+      "El servidor indexa las carpetas seleccionadas y sirve archivos por ID con el tipo MIME detectado.",
+      "Las actualizaciones incluyen el estado de pausa, la posición y el volumen.",
+    ],
+  },
   "pressure-point": {
     title: "Pressure Point — Multijugador con WebRTC",
     status: "Proyecto publicado de una game jam",
@@ -37,12 +47,6 @@ export const projectTranslations: Record<string, ProjectTranslation> = {
     status: "Sitio web en línea",
     description: "Desarrollé y desplegué un sitio web para una empresa de recreación y entretenimiento, con énfasis en visibilidad en buscadores y analítica.",
     technicalHighlights: ["Seguimiento personalizado de eventos y gestión del consentimiento.", "Datos estructurados, metadatos canónicos, sitemap e integración con Search Console.", "Diseño adaptable y optimización de imágenes."],
-  },
-  "multichannel-agent": {
-    title: "Agente de IA multicanal",
-    status: "Exploración de arquitectura",
-    description: "Exploro cómo un servicio en Node.js podría coordinar conversaciones con IA entre plataformas de mensajería y proveedores de modelos.",
-    technicalHighlights: ["Abstracción prevista para OpenAI, Gemini y Claude.", "El diseño considera conversaciones aisladas, memoria por conversación y gestión de mensajes concurrentes.", "Los posibles adaptadores de canales incluyen WhatsApp, Instagram, Messenger y Telegram."],
   },
   "braille-transformer": {
     status: "Proyecto para Android",

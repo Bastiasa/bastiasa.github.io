@@ -28,13 +28,43 @@ function VotingArchitecture({ locale }: { locale: Locale }) {
   );
 }
 
+function ProjectorArchitecture({ locale }: { locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
+  return (
+    <figure className="architecture">
+      <figcaption>{t("Playback flow on the LAN")}</figcaption>
+      <div className="architecture-flow">
+        <div className="architecture-node">
+          <strong>{t("Browser control panel")}</strong>
+          <span>/admin</span>
+        </div>
+        <div className="architecture-transport">
+          <span aria-hidden="true">↓</span> {t("Socket.IO playback commands")}
+        </div>
+        <div className="architecture-node">
+          <strong>{t("Electron host")}</strong>
+          <span>{t("Fastify serves local files and the host tracks playback state")}</span>
+        </div>
+        <div className="architecture-transport">
+          <span aria-hidden="true">↓</span> {t("Socket.IO state and HTTP media streams")}
+        </div>
+        <div className="architecture-node">
+          <strong>{t("Browser viewers")}</strong>
+          <span>/view</span>
+        </div>
+      </div>
+    </figure>
+  );
+}
+
 export function ProjectElement({ project, locale }: { project: ProjectInfo; locale: Locale }) {
   const t = (text: string) => translate(locale, text);
   const { id, title, category, status, year, description, solution, technologies, technicalHighlights, links, cover, featured } = project;
   const isVoting = id === "lan-voting";
+  const isProjector = id === "digital-projector";
 
   return (
-    <article id={id} className={isVoting ? "project-card project-spotlight" : "project-card"} aria-labelledby={`${id}-title`}>
+    <article id={id} className={isVoting || isProjector ? "project-card project-spotlight" : "project-card"} aria-labelledby={`${id}-title`}>
       <div className="project-body">
         <p className="project-meta">
           <span>{status}</span>
@@ -83,6 +113,7 @@ export function ProjectElement({ project, locale }: { project: ProjectInfo; loca
         {!featured && <p className="project-category">{t(category)}</p>}
       </div>
       {isVoting && <VotingArchitecture locale={locale} />}
+      {isProjector && <ProjectorArchitecture locale={locale} />}
     </article>
   );
 }

@@ -166,11 +166,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .tags li { padding: .18rem .5rem; border: 1px solid var(--border); border-radius: 5px; background: var(--background); color: var(--muted); font-size: .77rem; }
 .skill-primary .tags li { color: var(--ink); border-color: var(--border-strong); }
 .skill-familiarity { margin-top: .6rem; font-size: .82rem; color: var(--muted); }
-.complementary-skills { margin-top: 1rem; }
-.complementary-skills summary,
+.secondary-details { margin-top: 1rem; }
+.secondary-details summary,
 .project-details summary { width: fit-content; padding: .25rem 0; color: var(--accent); font-size: .89rem; font-weight: 650; }
-.complementary-skills summary:hover, .project-details summary:hover { color: var(--ink); }
-.complementary-grid { margin-top: .75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.secondary-details summary:hover, .project-details summary:hover { color: var(--ink); }
+.secondary-details > :not(summary) { margin-top: .75rem; }
 
 .project-controls { display: flex; flex-wrap: wrap; align-items: end; gap: .75rem 1.5rem; }
 .project-search { width: min(100%, 19rem); }
