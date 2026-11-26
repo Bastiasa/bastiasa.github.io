@@ -48,12 +48,6 @@ export const projectTranslations: Record<string, ProjectTranslation> = {
     description: "Desarrollé y desplegué un sitio web para una empresa de recreación y entretenimiento, con énfasis en visibilidad en buscadores y analítica.",
     technicalHighlights: ["Seguimiento personalizado de eventos y gestión del consentimiento.", "Datos estructurados, metadatos canónicos, sitemap e integración con Search Console.", "Diseño adaptable y optimización de imágenes."],
   },
-  "multichannel-agent": {
-    title: "Agente de IA multicanal",
-    status: "Exploración de arquitectura",
-    description: "Exploro cómo un servicio en Node.js podría coordinar conversaciones con IA entre plataformas de mensajería y proveedores de modelos.",
-    technicalHighlights: ["Abstracción prevista para OpenAI, Gemini y Claude.", "El diseño considera conversaciones aisladas, memoria por conversación y gestión de mensajes concurrentes.", "Los posibles adaptadores de canales incluyen WhatsApp, Instagram, Messenger y Telegram."],
-  },
   "braille-transformer": {
     status: "Proyecto para Android",
     description: "Aplicación nativa para Android que convierte texto a braille y permite escucharlo mediante síntesis de voz.",

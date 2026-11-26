@@ -14,7 +14,7 @@ export function Footer({ name, email, socials, otherProfiles, location, locale }
           </div>
 
           <div className="contact-links">
-            <a className="button button-primary" href={`mailto:${email}`}>{email} <span className="arrow-external" aria-hidden="true" /></a>
+            {email && <a className="button button-primary" href={`mailto:${email}`}>{email} <span className="arrow-external" aria-hidden="true" /></a>}
             <ul className="contact-socials">
               {socials.map(({ label, href }) => (
                 <li key={href}><a className="button button-secondary" href={href}>{label} <span className="arrow-external" aria-hidden="true" /></a></li>

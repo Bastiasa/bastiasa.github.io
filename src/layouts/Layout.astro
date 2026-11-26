@@ -1,7 +1,7 @@
 ---
 import { getImage } from "astro:assets";
 import { GITHUB_URL, LINKEDIN_URL } from "../data/footer";
-import { NAME, ROLE, STACK, SITE_DESCRIPTION } from "../data/globals";
+import { CONTACT_EMAIL, NAME, ROLE, STACK, SITE_DESCRIPTION } from "../data/globals";
 import { HERO_DATA } from "../data/hero";
 import { coreBackend } from "../data/skills";
 import { CONSENT_STORAGE_KEY } from "../analytics";
@@ -32,6 +32,7 @@ const structuredData = {
     "@id": personId,
     name: NAME,
     jobTitle: t(ROLE),
+    email: CONTACT_EMAIL || undefined,
     image: socialImageUrl.href,
     url: canonical.href,
     sameAs: [GITHUB_URL, LINKEDIN_URL],

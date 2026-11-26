@@ -1,11 +1,11 @@
-import { EMAIL, LOCATION, NAME } from "./globals";
+import { CONTACT_EMAIL, LOCATION, NAME } from "./globals";
 
 export const GITHUB_URL = "https://github.com/Bastiasa";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/luis-bastidas-64b06a29b/";
 
 export const FOOTER_DATA = {
   name: NAME,
-  email: EMAIL,
+  email: CONTACT_EMAIL,
   location: LOCATION,
   socials: [
     { label: "GitHub", href: GITHUB_URL },

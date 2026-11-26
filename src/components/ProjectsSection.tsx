@@ -41,7 +41,8 @@ export function ProjectsSection({ projects, locale }: { projects: ProjectInfo[];
   });
 
   const featured = filtered.filter((project) => project.featured);
-  const additional = filtered.filter((project) => !project.featured);
+  const additional = filtered.filter((project) => !project.featured && !project.experiment);
+  const experiments = filtered.filter((project) => project.experiment);
   const hasFilter = terms.length > 0 || category !== "All projects";
 
   function resetFilters() {
@@ -92,8 +93,8 @@ export function ProjectsSection({ projects, locale }: { projects: ProjectInfo[];
             </div>
           )}
 
-          {hasFilter && featured.length === 0 && additional.length > 0 && (
-            <p className="featured-empty">{t("Matches appear in")} <a href="#additional-projects">{t("Additional Projects")}</a>.</p>
+          {hasFilter && featured.length === 0 && filtered.length > 0 && (
+            <p className="featured-empty">{t("Matches appear in")} <a href={additional.length ? "#additional-projects" : "#other-experiments"}>{t(additional.length ? "Additional Projects" : "Other experiments")}</a>.</p>
           )}
         </section>
 
@@ -103,6 +104,17 @@ export function ProjectsSection({ projects, locale }: { projects: ProjectInfo[];
             <div className="additional-grid">
               {additional.map((project) => <ProjectElement key={project.id} project={project} locale={locale} />)}
             </div>
+          </section>
+        )}
+
+        {experiments.length > 0 && (
+          <section id="other-experiments" className="page-section" aria-label={t("Other experiments")}>
+            <details className="secondary-details" open={hasFilter ? true : undefined}>
+              <summary>{t("Other experiments")}</summary>
+              <div className="additional-grid">
+                {experiments.map((project) => <ProjectElement key={project.id} project={project} locale={locale} />)}
+              </div>
+            </details>
           </section>
         )}
       </div>

@@ -98,19 +98,6 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
     cover: { image: zonaMagica, alt: "", fit: "contain" },
   },
   {
-    id: "multichannel-agent",
-    title: "Multichannel AI Agent",
-    category: "Backend & networking",
-    status: "Architecture exploration",
-    description: "Exploring how a Node.js service could coordinate AI conversations across messaging platforms and model providers.",
-    technologies: ["Node.js", "TypeScript", "Tool calling", "Provider adapters", "Concurrent messaging"],
-    technicalHighlights: [
-      "Planned provider abstraction for OpenAI, Gemini, and Claude.",
-      "Design considers isolated conversations, per-conversation memory, and concurrent message handling.",
-      "Possible channel adapters include WhatsApp, Instagram, Messenger, and Telegram.",
-    ],
-  },
-  {
     id: "braille-transformer",
     title: "Braille Transformer",
     category: "Apps & tools",
@@ -157,6 +144,7 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
   },
   {
     id: "first-person-showcase",
+    experiment: true,
     title: "First Person Showcase",
     category: "Games & 3D",
     status: "Live demo",
@@ -168,6 +156,7 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
   },
   {
     id: "arkanet",
+    experiment: true,
     title: "ArkaNet",
     category: "Games & 3D",
     status: "Course project",
@@ -179,6 +168,7 @@ export const projects: ProjectInfo<ImageMetadata>[] = [
   },
   {
     id: "dark-people",
+    experiment: true,
     title: "Dark People",
     category: "Games & 3D",
     status: "Public beta",
