@@ -1,26 +1,5 @@
 ---
-import { getImage } from "astro:assets";
-import Layout from "../layouts/Layout.astro";
-import App from "../components/App";
-import { CookieConsent } from "../components/CookieConsent";
-import { ProjectsSection } from "../components/ProjectsSection";
-import { HERO_DATA } from "../data/hero";
-import { projects } from "../data/projects";
-import type { ProjectInfo } from "../types";
-
-const portrait = await getImage({ src: HERO_DATA.photo, width: 592, format: "webp", quality: 83 });
-const optimizedProjects = await Promise.all(projects.map(async ({ cover, ...project }): Promise<ProjectInfo> => {
-  if (!cover) return project;
-  const width = Math.min(560, cover.image.width);
-  const height = Math.round(cover.image.height * width / cover.image.width);
-  const image = await getImage({ src: cover.image, width, height, format: "webp" });
-  return { ...project, cover: { ...cover, image: { src: image.src, width, height } } };
-}));
+import Portfolio from "../components/Portfolio.astro";
 ---
 
-<Layout>
-  <App portrait={{ src: portrait.src, width: 592, height: 592 }}>
-    <ProjectsSection projects={optimizedProjects} client:visible />
-  </App>
-  <CookieConsent client:load />
-</Layout>
+<Portfolio locale="en" />

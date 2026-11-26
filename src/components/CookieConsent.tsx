@@ -1,7 +1,9 @@
+import { translate, type Locale } from "../i18n";
 import { useEffect, useState } from "react";
 import { CONSENT_STORAGE_KEY, setAnalyticsConsent, type AnalyticsConsent } from "../analytics";
 
-export function CookieConsent() {
+export function CookieConsent({ locale }: { locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -27,12 +29,12 @@ export function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <aside className="cookie-consent" aria-label="Analytics cookies">
+    <aside className="cookie-consent" aria-label={t("Analytics cookies")}>
       <div className="cookie-consent-inner">
-        <p>Allow Google Analytics cookies to help me understand how visitors use this portfolio.</p>
+        <p>{t("Allow Google Analytics cookies to help me understand how visitors use this portfolio.")}</p>
         <div className="cookie-actions">
-          <button className="button button-secondary" type="button" onClick={() => saveChoice("denied")}>Reject</button>
-          <button className="button button-primary" type="button" onClick={() => saveChoice("accepted")}>Accept</button>
+          <button className="button button-secondary" type="button" onClick={() => saveChoice("denied")}>{t("Reject")}</button>
+          <button className="button button-primary" type="button" onClick={() => saveChoice("accepted")}>{t("Accept")}</button>
         </div>
       </div>
     </aside>

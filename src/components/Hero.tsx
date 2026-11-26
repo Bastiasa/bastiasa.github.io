@@ -1,8 +1,10 @@
+import { translate, type Locale } from "../i18n";
 import { GITHUB_URL } from "../data/footer";
 import { HERO_DATA } from "../data/hero";
 import type { PortfolioImage } from "../types";
 
-export function Hero({ portrait }: { portrait: PortfolioImage }) {
+export function Hero({ portrait, locale }: { portrait: PortfolioImage; locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   const { name, role, stack, tagline, location, availability, experience, language } = HERO_DATA;
 
   return (
@@ -10,20 +12,20 @@ export function Hero({ portrait }: { portrait: PortfolioImage }) {
       <div className="container hero-inner">
         <div className="hero-copy">
           <p className="hero-name">{name}</p>
-          <h1 id="hero-title">{role}</h1>
-          <p className="hero-stack">{stack}</p>
-          <p className="hero-tagline">{tagline}</p>
+          <h1 id="hero-title">{t(role)}</h1>
+          <p className="hero-stack">{t(stack)}</p>
+          <p className="hero-tagline">{t(tagline)}</p>
 
           <div className="actions">
-            <a className="button button-primary" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a>
-            <a className="button button-secondary" href={GITHUB_URL}>View GitHub <span className="arrow-external" aria-hidden="true" /></a>
-            <a className="text-link" href="#contact">Get in touch <span aria-hidden="true">→</span></a>
+            <a className="button button-primary" href="#projects">{t("Explore my projects")} <span aria-hidden="true">↓</span></a>
+            <a className="button button-secondary" href={GITHUB_URL}>{t("View GitHub")} <span className="arrow-external" aria-hidden="true" /></a>
+            <a className="text-link" href="#contact">{t("Get in touch")} <span aria-hidden="true">→</span></a>
           </div>
 
-          <ul className="hero-facts" aria-label="Professional details">
-            <li>{experience}</li>
-            <li><a href="#certifications">{language}</a></li>
-            <li className="availability">{availability}</li>
+          <ul className="hero-facts" aria-label={t("Professional details")}>
+            <li>{t(experience)}</li>
+            <li><a href="#certifications">{t(language)}</a></li>
+            <li className="availability">{t(availability)}</li>
           </ul>
         </div>
 

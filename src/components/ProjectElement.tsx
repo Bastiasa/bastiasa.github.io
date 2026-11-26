@@ -1,32 +1,35 @@
+import { translate, type Locale } from "../i18n";
 import type { ProjectInfo } from "../types";
 
-function VotingArchitecture() {
+function VotingArchitecture({ locale }: { locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   return (
     <figure className="architecture">
-      <figcaption>How votes travel on the LAN</figcaption>
+      <figcaption>{t("How votes travel on the LAN")}</figcaption>
       <div className="architecture-flow">
         <div className="architecture-node">
-          <strong>Voter apps</strong>
-          <span>Collect votes on Windows</span>
+          <strong>{t("Voter apps")}</strong>
+          <span>{t("Collect votes on Windows")}</span>
         </div>
         <div className="architecture-transport">
-          <span aria-hidden="true">↓</span> AES-encrypted UDP broadcast
+          <span aria-hidden="true">↓</span> {t("AES-encrypted UDP broadcast")}
         </div>
         <div className="architecture-node">
           <strong>VotesViewer</strong>
-          <span>Validate packets and aggregate totals</span>
+          <span>{t("Validate packets and aggregate totals")}</span>
         </div>
         <div className="architecture-transport" aria-hidden="true">↓</div>
-        <ul className="architecture-outputs" aria-label="Viewer outputs">
-          <li>Live results</li>
-          <li>CSV export</li>
+        <ul className="architecture-outputs" aria-label={t("Viewer outputs")}>
+          <li>{t("Live results")}</li>
+          <li>{t("CSV export")}</li>
         </ul>
       </div>
     </figure>
   );
 }
 
-export function ProjectElement({ project }: { project: ProjectInfo }) {
+export function ProjectElement({ project, locale }: { project: ProjectInfo; locale: Locale }) {
+  const t = (text: string) => translate(locale, text);
   const { id, title, category, status, year, description, solution, technologies, technicalHighlights, links, cover, featured } = project;
   const isVoting = id === "lan-voting";
 
@@ -41,13 +44,13 @@ export function ProjectElement({ project }: { project: ProjectInfo }) {
         <p className="project-description">{description}</p>
         {solution && <p className="project-solution">{solution}</p>}
 
-        <ul className="tags project-tags" aria-label="Technologies">
-          {technologies.map((technology) => <li key={technology}>{technology}</li>)}
+        <ul className="tags project-tags" aria-label={t("Technologies")}>
+          {technologies.map((technology) => <li key={technology}>{t(technology)}</li>)}
         </ul>
 
         {(technicalHighlights || cover) && (
           <details className="project-details">
-            <summary>{technicalHighlights ? "Implementation details" : "Project preview"}<span className="sr-only"> for {title}</span></summary>
+            <summary>{t(technicalHighlights ? "Implementation details" : "Project preview")}<span className="sr-only">{t(" for ")}{title}</span></summary>
             {technicalHighlights && (
               <ul className="project-highlights">
                 {technicalHighlights.map((item) => <li key={item}>{item}</li>)}
@@ -70,16 +73,16 @@ export function ProjectElement({ project }: { project: ProjectInfo }) {
             {links.map(({ label, href }) => (
               <li key={href}>
                 <a className="text-link" href={href}>
-                  {label}<span className="sr-only"> for {title}</span> <span className="arrow-external" aria-hidden="true" />
+                  {t(label)}<span className="sr-only">{t(" for ")}{title}</span> <span className="arrow-external" aria-hidden="true" />
                 </a>
               </li>
             ))}
           </ul>
         )}
 
-        {!featured && <p className="project-category">{category}</p>}
+        {!featured && <p className="project-category">{t(category)}</p>}
       </div>
-      {isVoting && <VotingArchitecture />}
+      {isVoting && <VotingArchitecture locale={locale} />}
     </article>
   );
 }
